@@ -4,4 +4,5 @@ class Forum < ApplicationRecord
   validates :category, presence: true
 
   has_many :posts
+  belongs_to :category
 end

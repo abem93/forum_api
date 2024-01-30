@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_131155) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_30_134123) do
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "forums", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_forums_on_category_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -28,5 +35,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_131155) do
     t.index ["forum_id"], name: "index_posts_on_forum_id"
   end
 
+  add_foreign_key "forums", "categories"
   add_foreign_key "posts", "forums"
 end
